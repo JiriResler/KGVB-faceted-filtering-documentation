@@ -15,6 +15,9 @@ The following picture depicts parts of the Knowledge Graph Browser that allow fa
 - RDF datasets
   - [SPARQL endpoints](#sparql-endpoints)
 
+The next picture shows how the components interact during runtime:  <br><br>
+![Sequence diagram](/configuration_facets_sequence_diagram.png)
+
 <a id="faceted-filtering-component"></a>
 ## Frontend - Faceted filtering component
 
