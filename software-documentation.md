@@ -20,14 +20,14 @@ The next picture shows how the components interact during runtime:  <br><br>
 
 <a id="faceted-filtering-component"></a>
 ## Frontend - Faceted filtering component
-
+The [faceted filtering component](https://github.com/JiriResler/knowledge-graph-browser-frontend/tree/master/src/component/faceted-filtering) contains code for rendering facets and also a script for working with data that get sent by the [KGVB server](#get-facets-items). There are two major categories of facets: those that are defined in the graph's configuration and those which are found locally based on available information in the graph.
 
 <a id="facets-from-configuration"></a>
 ### Facets from configuration
 
 
 <a id="dynamically-generated-facets"></a>
-### Dynamically generated facets
+### Dynamically (locally) generated facets
 
 
 <a id="get-facets-items"></a>
