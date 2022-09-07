@@ -44,7 +44,39 @@ An example of a "numeric" facet:  <br><br>
 
 <a id="indexing-and-filtering"></a>
 ### How indexing of nodes and filtering works
-There is also a difference in how items (nodes' IRIs) are indexed for filtering. A "label" facet has a map as its index where keys are labels (for example given names of people) and values are IRIs of nodes (for example people) which have the given property (so for example ).
+#### Indexing
+There is a difference between label and numeric facets in that how items (nodes' IRIs) are indexed for filtering.  
+
+A label facet has a map as its index where keys are labels (for example given names of people) and values are IRIs of nodes (for example people) which have the given property.  
+
+An example of a label facet's index:  
+
+```typescript
+{
+   "Albert" => ["IRI_1"], 
+   "Marie" => ["IRI_2", "IRI_3"]
+ } 
+```
+
+A numeric facet has an array for its index and its elements are nodes with their numeric value associated to them.  
+
+An example of a numeric facet's index:
+```typescript
+[
+   {
+      "nodeIRI":"IRI_1",
+      "value":5
+   },
+   {
+      "nodeIRI":"IRI_2",
+      "value":7
+   }
+]
+```
+
+Indexes for facets are created when facets are created and updated as the user adds or removes nodes to the graph. When an index becomes empty, its facet is marked as undefined and won't be rendered.
+
+#### Filtering
 
 <a id="get-facets-items"></a>
 ## Backend - GET facets items
