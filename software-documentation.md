@@ -77,6 +77,7 @@ An example of a numeric facet's index:
 Indexes for facets are created when facets are created and updated as the user adds or removes nodes to the graph. When an index becomes empty, its facet is marked as undefined and won't be rendered.
 
 #### Filtering
+When a user clicks the filter button, a set of nodes that pass all selected criteria is gathered and all nodes of the graph are tested if they are present in this set. If a node doesn't pass the filter, it will become hidden.
 
 <a id="get-facets-items"></a>
 ## Backend - GET facets items
