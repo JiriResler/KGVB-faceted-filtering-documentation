@@ -89,3 +89,4 @@ A configuration has to have its facets defined in it so that they will be [used]
 
 <a id="sparql-endpoints"></a>
 ## RDF datasets - SPARQL endpoints
+An RDF dataset needs to provide an endpoint for SPARQL queries so that the [KGVB backend](#get-facets-items) can access the dataset.
