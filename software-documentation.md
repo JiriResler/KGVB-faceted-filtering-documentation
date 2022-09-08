@@ -77,11 +77,11 @@ An example of a numeric facet's index:
 Indexes for facets are created when facets are created and updated as the user adds or removes nodes to the graph. When an index becomes empty, its facet is marked as undefined and won't be rendered.
 
 #### Filtering
-When a user clicks the filter button, a set of nodes that pass all selected criteria is gathered and all nodes of the graph are tested if they are present in this set. If a node doesn't pass the filter, it will become hidden.
+When a user clicks the filter button, a set of nodes that pass all selected criteria is gathered and all nodes of the graph are tested if they are present in this set. If a node doesn't pass the filter, it will become hidden. See the [implementation](https://github.com/JiriResler/knowledge-graph-browser-frontend/blob/353bffa676763f133ca837ff8b7265932a1b3c7a/src/component/faceted-filtering/FacetedFiltering.vue#L477).
 
 <a id="get-facets-items"></a>
 ## Backend - GET facets items
-
+There's one function ([this one](https://github.com/linkedpipes/knowledge-graph-browser-backend/blob/0f5dd1be2d6df550350f355a761361aeeaa1f6a1/kgserver.js#L26)) which works as an intermediate between the [KGVB frontend](#faceted-filtering-component) and [RDF datasets](#sparql-endpoints). It basically reads a query from a [facet definition](#configuration-definitions) (if there is any facet defined in a configuration), inserts nodes' IRIs from frontend into that query and sends it to a SPARQL endpoint. Then it parses its response and sends the result to the frontend.
 
 <a id="configuration-definitions"></a>
 ## Triple store - Configuration definitions
