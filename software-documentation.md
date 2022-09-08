@@ -85,7 +85,7 @@ There's one function ([this one](https://github.com/linkedpipes/knowledge-graph-
 
 <a id="configuration-definitions"></a>
 ## Triple store - Configuration definitions
-
+A configuration has to have its facets defined in it so that they will be [used](#facets-from-configuration) by the tool. Otherwise only [locally generated facets](#dynamically-generated-facets) will be found.
 
 <a id="sparql-endpoints"></a>
 ## RDF datasets - SPARQL endpoints
