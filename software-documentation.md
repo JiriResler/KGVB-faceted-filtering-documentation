@@ -20,6 +20,14 @@ The following picture depicts parts of the Knowledge Graph Browser that allow fa
 ## Frontend - Faceted filtering component
 The [faceted filtering component](https://github.com/JiriResler/knowledge-graph-browser-frontend/tree/master/src/component/faceted-filtering) contains code for rendering facets and also a script for working with data that get sent by the [KGVB server](#get-facets-items). There are two major categories of facets: those that are defined in the graph's configuration and those which are found locally based on available information in the graph. If no facets are defined in a configuration, then only [locally generated facets](#dynamically-generated-facets) will be found.
 
+Buttons' functionality:
+- Filter
+  - triggers filtering of the graph with parameters chosen by the user
+- Reset
+  - shows all hidden nodes, unchecks all checkboxes and resets all sliders
+- Reload facets
+  - clears all facets and loads them again
+
 <a id="facets-from-configuration"></a>
 ### Facets from configuration
 The creator of a configuration can define facets which will then be shown to the user in the filtering tab. More about defining facets is in [configuration definitions](configuration-definitions).  
