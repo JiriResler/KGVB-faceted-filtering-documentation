@@ -35,6 +35,16 @@ The creator of a configuration can define facets which will then be shown to the
 The following sequence diagram shows how the components interact during runtime when the tool is loading configuration facets:  <br><br>
 ![Sequence diagram](/resources/configuration_facets_sequence_diagram.png)
 
+1) The user wants to load facets
+    - both from configuration and dynamically generated
+    - when they click the filtering tab for the first time or when they click the "reload facets" button
+2) The KGVB frontend calls the [getFacetsItems function](#get-facets-items) on the KGVB server
+    - its inputs are the graph's configuration's IRI and nodes' IRIs for which the facets are supposed to be loaded
+3) The server loads the configuration as a set of triples
+4) For each defined facet in the configuration the server loads information about the facet and sends its query to a SPARQL endpoint (which is specified in the configuration)
+    - when the KGVB server receives a response from a SPARQL endpoint, it parses the response and adds it to a variable named `facetsItems`
+6) The server sends the `facetsItems` to the frontend
+
 <a id="dynamically-generated-facets"></a>
 ### Dynamically (locally) generated facets
 
@@ -77,7 +87,7 @@ When a user clicks the filter button, a set of nodes that pass all selected crit
 
 <a id="get-facets-items"></a>
 ## Backend - GET facets items
-There's one function ([this one](https://github.com/linkedpipes/knowledge-graph-browser-backend/blob/0f5dd1be2d6df550350f355a761361aeeaa1f6a1/kgserver.js#L26)) which works as an intermediate between the [KGVB frontend](#faceted-filtering-component) and [RDF datasets](#sparql-endpoints). It basically reads a query from a [facet definition](#configuration-definitions) (if there is any facet defined in a configuration), inserts nodes' IRIs from frontend into that query and sends it to a SPARQL endpoint. Then it parses its response and sends the result to the frontend.
+There's one function ([this one](https://github.com/linkedpipes/knowledge-graph-browser-backend/blob/0f5dd1be2d6df550350f355a761361aeeaa1f6a1/kgserver.js#L26)) which works as an intermediate between the [KGVB frontend](#faceted-filtering-component) and [RDF datasets](#sparql-endpoints). Its inputs are the graph's configuration's IRI and nodes' IRIs for which the facets are supposed to be loaded. It basically reads a query from a [facet definition](#configuration-definitions) (if there is any facet defined in a configuration), inserts nodes' IRIs from frontend into that query and sends it to a SPARQL endpoint. Then it parses its response and sends the result to the frontend.
 
 <a id="configuration-definitions"></a>
 ## Triple store - Configuration definitions
