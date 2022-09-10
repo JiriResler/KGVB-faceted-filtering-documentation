@@ -40,7 +40,7 @@ The following sequence diagram shows how the components interact during runtime 
     - when they click the filtering tab for the first time (when the component is mounted)
     - when they click the "reload facets" button
     - after an expansion for newly added nodes
-2) The KGVB frontend calls the [getFacetsItems function](#get-facets-items) on the KGVB server
+2) The KGVB frontend calls the [getFacetsItems](#get-facets-items) function on the KGVB server
     - its inputs are the graph's configuration's IRI and nodes' IRIs for which the facets are supposed to be loaded
 3) The server loads the configuration as a set of triples
 4) For each defined facet in the configuration the server loads information about the facet and sends its query to a SPARQL endpoint (which is specified in the configuration)
