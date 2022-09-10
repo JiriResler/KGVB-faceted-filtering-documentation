@@ -89,6 +89,8 @@ When a user clicks the filter button, a set of nodes that pass all selected crit
 ## Backend - GET facets items
 There's one function ([this one](https://github.com/linkedpipes/knowledge-graph-browser-backend/blob/0f5dd1be2d6df550350f355a761361aeeaa1f6a1/kgserver.js#L26)) which works as an intermediate between the [KGVB frontend](#faceted-filtering-component) and [RDF datasets](#sparql-endpoints). Its inputs are the graph's configuration's IRI and nodes' IRIs for which the facets are supposed to be loaded. It basically reads a query from a [facet definition](#configuration-definitions) (if there is any facet defined in a configuration), inserts nodes' IRIs from frontend into that query and sends it to a SPARQL endpoint. Then it parses its response and sends the result to the frontend.
 
+Here is an [example](https://query.wikidata.org/#PREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20browser%3A%20%3Chttps%3A%2F%2Flinked.opendata.cz%2Fontology%2Fknowledge-graph-browser%2F%3E%0A%0ACONSTRUCT%20%7B%0A%20%20%3Fnode%20browser%3AqueryPath%20%3FtargetNode.%0A%7D%20WHERE%20%7B%20%0A%20%20VALUES%20%3Fnode%20%7B%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ1035%3E%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ937%3E%7D%0A%20%20%3Fnode%20wdt%3AP735%2Frdfs%3Alabel%20%3FtargetNode.%0A%20%20FILTER%20%28LANG%28%3FtargetNode%29%20%3D%20%22en%22%29%0A%7D) of what a facet's query can look like after the function inserts nodes' IRIs which it gets sent from the frontend. When it is run there is also an example of a SPARQL endpoint response which the backend function parses.
+
 <a id="configuration-definitions"></a>
 ## Triple store - Configuration definitions
 The creator of a configuration can specify a facet like this:  <br><br>
@@ -101,6 +103,7 @@ The creator of a configuration can specify a facet like this:  <br><br>
 - `browser:hasDataset` specifies a dataset on which the `browser:facetQuery` will be executed. The dataset needs to have a [SPARQL endpoint](#sparql-endpoints) available. 
 
 - `browser:facetQuery` is a SPARQL query which returns nodes' IRIs and values associated with them given that they meet the query's criteria. For example for the above facet's query for a node specified by http://www.wikidata.org/entity/Q937 the associated value would be Albert. More on these internals in the [GET facets items](#get-facets-items) chapter.
+  - `#INSERTNODES` serves for the backend function so that it can inserts nodes' IRIs which it gets sent from the frontend.
 
 An example of a "numeric" facet:  <br><br>
 ![Born in country with certain population_facet](/resources/born_in_country_population_facet.png)
