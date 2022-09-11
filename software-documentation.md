@@ -49,6 +49,14 @@ The following sequence diagram shows how the components interact during runtime 
 
 <a id="dynamically-generated-facets"></a>
 ### Dynamically (locally) generated facets
+[Dynamically generated facets](https://github.com/JiriResler/knowledge-graph-browser-frontend/blob/master/src/component/faceted-filtering/DynamicallyGeneratedFacets.ts) are facets which are found locally based on the current state of the graph. They are not specified in a configuration. The principles of these facets are the same for every graph no matter what configuration is chosen.  
+
+These are the currently supported facets:
+
+- Type of node
+- Number of edges (total/incoming/outgoing)
+- Number of edges of the same type
+- Path
 
 <a id="indexing-and-filtering"></a>
 ### How indexing of nodes and filtering works
