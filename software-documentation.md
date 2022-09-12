@@ -10,7 +10,7 @@ The following picture depicts parts of the Knowledge Graph Browser that allow fa
       - [Dynamically generated facets](#dynamically-generated-facets)
       - [How indexing of nodes and filtering works](#indexing-and-filtering)
   - KGVB backend
-    - [GET facets items](get-facets-items)
+    - [GET facets items](#get-facets-items)
 - Triple store
   - [Configuration definitions](#configuration-definitions)
 - RDF datasets
