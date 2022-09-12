@@ -121,6 +121,8 @@ The creator of a configuration can specify a facet like this:  <br><br>
 An example of a "numeric" facet:  <br><br>
 ![Born in country with certain population_facet](/resources/born_in_country_population_facet.png)
 
+Here is a runnable [example](https://query.wikidata.org/#PREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20browser%3A%20%3Chttps%3A%2F%2Flinked.opendata.cz%2Fontology%2Fknowledge-graph-browser%2F%3E%0A%0ACONSTRUCT%20%7B%0A%20%20%3Fnode%20browser%3AqueryPath%20%3FtargetNode.%0A%7D%20WHERE%20%7B%20%0A%20%20VALUES%20%3Fnode%20%7B%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ1035%3E%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ937%3E%7D%0A%20%20%3Fnode%20wdt%3AP735%2Frdfs%3Alabel%20%3FtargetNode.%0A%20%20FILTER%20%28LANG%28%3FtargetNode%29%20%3D%20%22en%22%29%0A%7D) of how a query is used.
+
 <a id="sparql-endpoints"></a>
 ## RDF datasets - SPARQL endpoints
 An RDF dataset needs to provide an endpoint for SPARQL queries so that the [KGVB backend](#get-facets-items) can access the dataset.
