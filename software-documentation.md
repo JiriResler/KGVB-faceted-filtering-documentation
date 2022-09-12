@@ -56,7 +56,10 @@ These are the currently supported facets:
 - Type of node
 - Number of edges (total/incoming/outgoing)
 - Number of edges of the same type
+  - this facet filters nodes by their number of edges of a specific type - for example a node can have 3 edges of type "awarded by" 
 - Path
+  - this type of facet is specified by a path in the graph
+  - for example a facet can be specified by "colleague (outgoing edge)" / "awarded by (outgoing edge)" which means that the user can filter nodes based on whether there exists a path like this which starts from the node. The user can also select what label should the node at the end of that path have. 
 
 <a id="indexing-and-filtering"></a>
 ### How indexing of nodes and filtering works
