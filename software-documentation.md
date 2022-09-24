@@ -59,7 +59,7 @@ These are the currently supported facets:
   - this facet filters nodes by their number of edges of a specific type - for example a node can have 3 edges of type "awarded by" 
 - Path
   - this type of facet is specified by a path in the graph
-  - for example a facet can be specified by "colleague (outgoing edge)" / "awarded by (outgoing edge)" which means that the user can filter nodes based on whether there exists a path like this which starts from the node. The user can also select what label should the node at the end of that path have. 
+  - for example a facet can be specified by *colleague (outgoing edge) / awarded by (outgoing edge)* which means that the user can filter nodes based on whether there exists a path like this which starts from the node. The user can also select what label should the node at the end of that path have. 
 
 <a id="indexing-and-filtering"></a>
 ### How indexing of nodes and filtering works
@@ -105,7 +105,7 @@ The facets we will examine will be:
 
 - Born in country facet - every person has a country they were born in
 - Number of outgoing edges
-- Path facet defined by this path: colleague (outgoing) / awardedByInstitution (outgoing)
+- Path facet defined by this path: **colleague (outgoing) / awardedByInstitution (outgoing)**
   - this facet means that there must lead a path like this from a node which ends in nodes with labels chosen by the user
 
 Let the configuration have only one facet defined - the born in country facet which allows to filter by countries where people were born in.  
