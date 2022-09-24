@@ -63,7 +63,6 @@ These are the currently supported facets:
 
 <a id="indexing-and-filtering"></a>
 ### How indexing of nodes and filtering works
-#### Indexing
 There is a difference between label and numeric facets in that how items (nodes' IRIs) are indexed for filtering.  
 
 A label facet has a map as its index where keys are labels (for example given names of people) and values are IRIs of nodes (for example people) which have the given property.  
@@ -95,8 +94,127 @@ An example of a numeric facet's index:
 
 Indexes for facets are created when facets are created and updated as the user adds or removes nodes to the graph. When an index becomes empty, its facet is marked as undefined and won't be rendered.
 
-#### Filtering
 When a user clicks the filter button, a set of nodes that pass all selected criteria is gathered and all nodes of the graph are tested if they are present in this set. If a node doesn't pass the filter, it will become hidden. See the [implementation](https://github.com/JiriResler/knowledge-graph-browser-frontend/blob/353bffa676763f133ca837ff8b7265932a1b3c7a/src/component/faceted-filtering/FacetedFiltering.vue#L477).
+
+#### Example of indexing and filtering:  
+Let's consider this graph for an example:
+
+![Example of indexing and filtering](/resources/indexing_and_filtering_graph.png)
+
+The facets we will examine will be:
+
+- Born in country facet - every person has a country they were born in
+- Number of outgoing edges
+- Path facet defined by this path: colleague (outgoing) / awardedByInstitution (outgoing)
+  - this facet means that there must lead a path like this from a node which ends in nodes with labels chosen by the user
+
+Let the configuration have only one facet defined - the born in country facet which allows to filter by countries where people were born in.  
+
+So the client sends a request to the server which will return facet items. The client will create a facet (if it wasn't created before) and create (or update) its index with the following content:  
+
+```typescript
+{
+   "Austria" => ["Erwin Schrödinger", "Otto Robert Frisch", "Josef Breuer"], 
+
+   "Germany" => ["Immanuel Estermann"],
+
+   "Czech Republic" => ["David Ernst Oppenheim", "Sigmund Freud"]
+ } 
+```
+
+We can calculate rest of the facets on the client from information in the graph. The number of outgoing edges facet's index will have this content:
+
+```typescript
+[
+   {
+      "nodeIRI":"Erwin Schrödinger",
+      "value":4
+   },
+   {
+      "nodeIRI":"Otto Robert Frisch",
+      "value":3
+   },
+   {
+      "nodeIRI":"Sigmund Freud",
+      "value":2
+   },
+   {
+      "nodeIRI":"David Ernst Oppenheim",
+      "value":1
+   },
+   {
+      "nodeIRI":"Josef Breuer",
+      "value":1
+   },
+   {
+      "nodeIRI":"Immanuel Estermann",
+      "value":2
+   },
+   {
+      "nodeIRI":"Vladimir V. Tchernavin",
+      "value":1
+   },
+   {
+      "nodeIRI":"Otto Stern",
+      "value":2
+   }
+]
+```
+
+The path facet's index will contain these information:
+
+```typescript
+{
+   "Deutsche Physikalische Gesellschaft" => ["Vladimir V. Tchernavin"], 
+
+   "Royal Society" => ["Vladimir V. Tchernavin", "David Ernst Oppenheim", "Josef Breuer"],
+
+   "Frankfurt am Main" => ["David Ernst Oppenheim", "Josef Breuer"],
+
+   "French Academy of Sciences" => ["Vladimir V. Tchernavin"],
+
+   "American Physical Society" => ["Vladimir V. Tchernavin"],
+
+   "Royal Swedish Academy of Sciences" => ["Vladimir V. Tchernavin"],
+
+   "ETH Zürich" => ["Otto Robert Frisch", "Immanuel Estermann"]
+ }
+```
+
+Let's say that the user chooses these values for facets:  
+
+- Born in country facet: labels `Austria`, `Germany`, `Czech Republic`
+- Number of outgoing edges facet: range `<1, 2>`
+- The path facet defined by this path: **colleague (outgoing) / awardedByInstitution (outgoing)**: labels `Royal society`, `Deutsche Physikalische Gesellschaft`, `Royal Swedish Academy of Sciences`
+
+When the filter button is pressed, each facet returns a set of nodes which pass the selected criteria.  
+
+The born in country facet will return this set:  
+
+```typescript
+{"Erwin Schrödinger", "Otto Robert Frisch", "Sigmund Freud", "David Ernst Oppenheim", "Josef Breuer", "Immanuel Estermann"}
+```
+
+The number of outgoing edges facet will return this set:  
+
+```typescript
+{"Vladimir V. Tchernavin", "Sigmund Freud", "David Ernst Oppenheim", "Josef Breuer", "Immanuel Estermann"}
+```
+
+The path facet will return this set:  
+
+```typescript
+{"Vladimir V. Tchernavin", "Otto Robert Frisch", "David Ernst Oppenheim", "Josef Breuer", "Immanuel Estermann"}
+```
+
+We need the nodes to pass all filters, so an intersection of all nodes is made with this result:
+
+```typescript
+{"Josef Breuer", "David Ernst Oppenheim", "Immanuel Estermann"}
+```
+
+This is a set of nodes which should remain visible, so if a node is not present in this set, it will be hidden.
+
 
 <a id="get-facets-items"></a>
 ## Backend - GET facets items
