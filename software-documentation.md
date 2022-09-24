@@ -110,7 +110,7 @@ The facets we will examine will be:
 
 Let the configuration have only one facet defined - the born in country facet which allows to filter by countries where people were born in.  
 
-So the client sends a request to the server which will return facet items. The client will create a facet (if it wasn't created before) and create (or update) its index with the following content:  
+So, the client sends a request to the server which will return facet items. The client will create a facet (if it wasn't created before) and create (or update) its index with the following content (the application works with nodes' IRIs, here we use human readable names of nodes for clarity):  
 
 ```typescript
 {
